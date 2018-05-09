@@ -1,59 +1,38 @@
 package handlers;
-import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
-import graphics.Dimensions;
-import superclasses.FieldObject;
+import javax.imageio.ImageIO;
 
-public class Target extends FieldObject {
-	private int x;
-	private int y;
-	private int direction;
-	private int speed;
-	private int radius;
+import superclasses.*;
+
+public class Target extends MovingObject {
 	public Target(int x, int y, int d) {
 		this.x = x;
 		this.y = y;
 		direction = d;
 		speed = 7;
-		radius = 20;
-	}
-	public int getX() {
-		return x;
-	}
-	public void setX(int x) {
-		this.x = x;
+		radius = 10;
+		imgName = "circle.png";
 	}
 	
-	public int getY() {
-		return y;
-	}
-	public void setY(int y) {
-		this.y = y;
-	}
-	public void move() {
-		if (y <= Dimensions.getY() + radius || y >= Dimensions.getY() + Dimensions.getHeight() - radius) {
-			changeDirection();
-		}
-		x += Math.cos(Math.toRadians(direction)) * speed;
-		y += Math.sin(Math.toRadians(direction)) * speed;
-	}
 	public void process() {
 		move();
 		draw();
+		dropShadow();
 	}
-	public void changeDirection() {
-		direction = (direction + 180) % 360;
-	}
+	
 	public void draw() {
 		Graphics g = myGame.getUI().getG();
-		g.setColor(Color.white);
-		g.drawOval((int)(x-(.5*radius)), (int)(y-(.5*radius)), (int)radius, (int)radius);
-	}
-	public int getDirection() {
-		return direction;
-	}
-	public void setDirection(int direction) {
-		this.direction = direction;
+		BufferedImage img = null;
+		try {
+			img = ImageIO.read(new File(imgName));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		img = myGame.getUI().rotate(img, 90+(rotation));
+		g.drawImage(img, (int)(x-radius), (int)(y-radius), (int)(2*radius), (int)(2*radius), null);
 	}
 }

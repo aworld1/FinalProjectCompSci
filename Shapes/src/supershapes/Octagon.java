@@ -17,13 +17,14 @@ public class Octagon extends GiantShape {
 	public Octagon(Player o) {
 		super(o, 8);
 		speed = 2;
+		imgName = "octagon.png";
 	}
 	
 	public void draw() {
 		Graphics g = myGame.getUI().getG();
 		BufferedImage img = null;
 		try {
-			img = ImageIO.read(new File("octagon.png"));
+			img = ImageIO.read(new File(imgName));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -63,11 +63,9 @@ public class Game {
 					a = thisObj.evaluate(thatObj,thisObj.compareTo(thatObj));
 					b = thatObj.evaluate(thisObj,thatObj.compareTo(thisObj));
 					if (a != null) {
-						a.doBeforeDie();
-						removeObj(a);
+						a.removeSelf();
 						if (a != b && b != null) {
-							b.doBeforeDie();
-							removeObj(b);
+							b.removeSelf();
 						}
 					}
 				}

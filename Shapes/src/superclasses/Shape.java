@@ -1,18 +1,11 @@
 package superclasses;
 
-import graphics.Dimensions;
-import handlers.Player;
+import handlers.*;
 
-public class Shape extends FieldObject{
+public class Shape extends MovingObject{
 	protected int value;
-	protected int x;
-	protected int y;
-	protected int direction;
 	protected Player owner;
-	protected double speed;
-	protected double radius;
 	protected int cost;
-	protected double rotation;
 	
 	public Shape(Player o) {
 		owner = o;
@@ -35,6 +28,7 @@ public class Shape extends FieldObject{
 		move();
 		rotation += 5;
 		draw();
+		dropShadow();
 	}
 	
 	public boolean colliding(FieldObject s) {
@@ -43,23 +37,7 @@ public class Shape extends FieldObject{
 			double distance = Math.sqrt(Math.pow(x - ((Shape)s).getX(), 2) + Math.pow(y - ((Shape)s).getY(), 2));
 			return distance <= space && this.owner != ((Shape)s).getOwner();
 		}
-		return super.colliding(s);
-	}
-	
-	public void move() {
-		if (y <= Dimensions.getY() + radius || y >= Dimensions.getY() + Dimensions.getHeight() - radius) {
-			direction += (2 * (180 - direction)) % 360;
-		}
-		x += Math.round(Math.cos(Math.toRadians(direction)) * speed);
-		y += Math.round(Math.sin(Math.toRadians(direction)) * speed);
-	}
-	
-	public int getDirection() {
-		return direction;
-	}
-	
-	public void setDirection(int direction) {
-		this.direction = direction;
+		return s.colliding(this);
 	}
 	
 	public Player getOwner() {
@@ -70,30 +48,9 @@ public class Shape extends FieldObject{
 		this.owner = owner;
 	}
 	
-	public int getX() {
-		return x;
-	}
-	
-	public void setX(int x) {
-		this.x = x;
-	}
-	
-	public int getY() {
-		return y;
-	}
-	
-	public void setY(int y) {
-		this.y = y;
-	}
-	
 	public void setXYToTarget() {
 		x = owner.getTarget().getX();
 		y = owner.getTarget().getY();
-	}
-	
-	public void setXY(int x, int y) {
-		this.x = x;
-		this.y = y;
 	}
 	
 	public int getValue() {
@@ -102,22 +59,6 @@ public class Shape extends FieldObject{
 	
 	public void setValue(int value) {
 		this.value = value;
-	}
-
-	public double getSpeed() {
-		return speed;
-	}
-
-	public void setSpeed(double speed) {
-		this.speed = speed;
-	}
-
-	public double getRadius() {
-		return radius;
-	}
-
-	public void setRadius(double radius) {
-		this.radius = radius;
 	}
 
 	public int getCost() {
@@ -139,5 +80,9 @@ public class Shape extends FieldObject{
 
 	public void setRotation(double rotation) {
 		this.rotation = rotation;
+	}
+	
+	public String getImgName() {
+		return imgName;
 	}
 }

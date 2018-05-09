@@ -17,13 +17,14 @@ public class Dodecagon extends GiantShape {
 	public Dodecagon(Player o) {
 		super(o, 12);
 		speed = 1.5;
+		imgName = "dodecagon.png";
 	}
 	
 	public void draw() {
 		Graphics g = myGame.getUI().getG();
 		BufferedImage img = null;
 		try {
-			img = ImageIO.read(new File("dodecagon.png"));
+			img = ImageIO.read(new File(imgName));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

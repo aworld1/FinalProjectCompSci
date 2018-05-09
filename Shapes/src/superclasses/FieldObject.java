@@ -41,4 +41,8 @@ public class FieldObject {
 	public boolean isDead() {
 		return dead;
 	}
+	public void removeSelf() {
+		doBeforeDie();
+		myGame.removeObj(this);
+	}
 }
