@@ -24,6 +24,31 @@ public class Target extends MovingObject {
 		dropShadow();
 	}
 	
+	public void dropShadow() {
+		String temp = imgName;
+		int x = (int)(Math.random()*5);
+		switch (x) {
+		case 0:
+			imgName = "circle.png";
+			break;
+		case 1:
+			imgName = "x.png";
+			break;
+		case 2:
+			imgName = "triangle.png";
+			break;
+		case 3:
+			imgName = "square.png";
+			break;
+		case 4:
+			imgName = "pentagon.png";
+			break;
+		}
+		rotation = Math.random()*360;
+		super.dropShadow();
+		imgName = temp;
+	}
+	
 	public void draw() {
 		Graphics g = myGame.getUI().getG();
 		BufferedImage img = null;

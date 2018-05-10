@@ -1,11 +1,14 @@
 package handlers;
-import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.*;
 import java.util.*;
 
-import graphics.Dimensions;
-import graphics.UI;
-import superclasses.FieldObject;
+import graphics.*;
+import simpleshapes.Circle;
+import simpleshapes.Pentagon;
+import simpleshapes.Square;
+import simpleshapes.Triangle;
+import simpleshapes.X;
+import superclasses.*;
 import superclasses.Shape;
 
 public class Game {
@@ -64,9 +67,9 @@ public class Game {
 					b = thatObj.evaluate(thisObj,thatObj.compareTo(thisObj));
 					if (a != null) {
 						a.removeSelf();
-						if (a != b && b != null) {
-							b.removeSelf();
-						}
+					}
+					if (a != b && b != null) {
+						b.removeSelf();
 					}
 				}
 			}
@@ -164,7 +167,9 @@ public class Game {
 	public String createDeathSentence(FieldObject a) {
 		int x = (int)(Math.random() * 6);
 		String s = a.getClass() + "";
-		s = s.substring(s.indexOf(".")-5, s.length());
+		while (s.indexOf(".") != -1) {
+			s = s.substring(s.indexOf(".")+1);
+		}
 		switch (x) {
 			case 0:
 				s += " has perished";
@@ -185,7 +190,23 @@ public class Game {
 				s += " was toasted";
 				break;
 		}
-		s = s.substring(6,s.length());
 		return s;
+	}
+	
+	public SimpleShape getRandomSimpleShape() {
+		int c = (int)(Math.random()*5);
+		switch (c) {
+		case 0:
+			return new Circle(new Player());
+		case 1:
+			return new X(new Player());
+		case 2:
+			return new Triangle(new Player());
+		case 3:
+			return new Square(new Player());
+		case 4:
+			return new Pentagon(new Player());
+		}
+		return null;
 	}
 }

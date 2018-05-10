@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 import handlers.Player;
 
 public class Firework extends SuperShape {
+	protected boolean movingBackwards;
 	public Firework(Player o) {
 		super(o);
 		value = 0;
@@ -29,7 +30,20 @@ public class Firework extends SuperShape {
 	public void process() {
 		move();
 		draw();
-		speed -= .03;
+		reduceSpeed();
+	}
+	
+	public void reduceSpeed() {
+		if (speed <= 0 && !movingBackwards) {
+			movingBackwards = true;
+			direction = (direction + 180) % 360;
+		}
+		else if (!movingBackwards) {
+			speed -= .03;
+		}
+		else {
+			speed += .03;
+		}
 	}
 	
 	public FieldObject evaluate(FieldObject s, int c) {
@@ -55,7 +69,6 @@ public class Firework extends SuperShape {
 	
 
 	public void draw() {
-		// Draw shape on game
 		Graphics g = myGame.getUI().getG();
 		BufferedImage img = null;
 		try {
@@ -63,12 +76,7 @@ public class Firework extends SuperShape {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		if (speed > 0) {
-			img = myGame.getUI().rotate(img, direction+90);
-		}
-		else {
-			img = myGame.getUI().rotate(img, direction-90);
-		}
-		g.drawImage(img, (int)(x-1.5*radius), (int)(y-0.75*radius), (int)radius*3, (int)(radius*1.5), null);
+		img = myGame.getUI().rotate(img, direction);
+		g.drawImage(img, (int)(x-radius), (int)(y-radius), (int)radius*2, (int)(radius*2), null);
 	}
 }
