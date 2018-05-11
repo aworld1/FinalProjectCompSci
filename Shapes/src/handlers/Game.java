@@ -32,6 +32,8 @@ public class Game {
 		this.addObj(players[1].getTarget());
 		this.addObj(goals[0]);
 		this.addObj(goals[1]);
+		
+		ui.setGame(this);
 	}
 	
 	public UI getUI() {

@@ -1,18 +1,30 @@
 package graphics;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
-public class UI extends Canvas implements Runnable {
+
+import handlers.Game;
+import handlers.Player;
+import simpleshapes.*;
+public class UI extends Canvas implements Runnable, KeyListener {
 	private static final long serialVersionUID = 2664539955261714283L;
 	private Graphics g;
 	private BufferStrategy bs;
 	private Window window;
+	private Game game;
 	public UI() {
-		window = new Window(700,1200,"",this);
+		window = new Window(700,1200,"Assaf needs 100% on this plz no bug thx",this);
 		run();
+		
+		addKeyListener(this);
+	}
+	
+	public void setGame(Game game) {
+		this.game = game;
 	}
 
 	@Override
@@ -85,6 +97,59 @@ public class UI extends Canvas implements Runnable {
 	
 	public Window getWindow() {
 		return window;
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		if (e.getKeyCode() == KeyEvent.VK_1) {
+			game.spawnShapeByPlayerIndex(new Circle(new Player()), 0);
+        }
+		if (e.getKeyCode() == KeyEvent.VK_2) {
+			game.spawnShapeByPlayerIndex(new X(new Player()), 0);
+        }
+		if (e.getKeyCode() == KeyEvent.VK_3) {
+			game.spawnShapeByPlayerIndex(new Triangle(new Player()), 0);
+        }
+		if (e.getKeyCode() == KeyEvent.VK_4) {
+			game.spawnShapeByPlayerIndex(new Square(new Player()), 0);
+        }
+		if (e.getKeyCode() == KeyEvent.VK_5) {
+			game.spawnShapeByPlayerIndex(new Pentagon(new Player()), 0);
+        }
+		if (e.getKeyCode() == KeyEvent.VK_6) {
+			System.out.println("This hasn't been implemented yet u bonobo");
+        }
+		if (e.getKeyCode() == KeyEvent.VK_B) {
+			game.spawnShapeByPlayerIndex(new Circle(new Player()), 1);
+        }
+		if (e.getKeyCode() == KeyEvent.VK_N) {
+			game.spawnShapeByPlayerIndex(new X(new Player()), 1);
+        }
+		if (e.getKeyCode() == KeyEvent.VK_M) {
+			game.spawnShapeByPlayerIndex(new Triangle(new Player()), 1);
+        }
+		if (e.getKeyCode() == KeyEvent.VK_COMMA) {
+			game.spawnShapeByPlayerIndex(new Square(new Player()), 1);
+        }
+		if (e.getKeyCode() == KeyEvent.VK_PERIOD) {
+			game.spawnShapeByPlayerIndex(new Pentagon(new Player()), 1);
+        }
+		if (e.getKeyCode() == KeyEvent.VK_SLASH) {
+			System.out.println("This hasn't been implemented yet u bonobo");
+        }
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }
 
