@@ -5,8 +5,10 @@ public class Cannon extends MovingObject {
 	protected int fireCooldown;
 	protected int fireFrame;
 	protected int turnSpeed;
-	public Cannon(int x, int y, int direction, int speed, int turnSpeed, int fireCooldown) {
+	protected int effectDirection;
+	public Cannon(int x, int y, int direction, int speed, int edirection, int turnSpeed, int fireCooldown) {
 		this.direction = direction;
+		this.effectDirection = edirection;
 		this.speed = speed;
 		this.x = x;
 		this.y = y;
@@ -22,8 +24,8 @@ public class Cannon extends MovingObject {
 		move();
 		checkFire();
 		draw();
-		direction += turnSpeed;
-		rotation = direction;
+		effectDirection += turnSpeed;
+		rotation = effectDirection;
 	}
 	
 	public void checkFire() {
@@ -38,13 +40,13 @@ public class Cannon extends MovingObject {
 	public void fire() {
 		SimpleShape a = myGame.getRandomSimpleShape();
 		SimpleShape b = myGame.getRandomSimpleShape();
-		a.setXY((int)(Math.cos(Math.toRadians(direction)) * (radius + a.getRadius()) + x + 1),
-				(int)(Math.sin(Math.toRadians(direction)) * (radius + a.getRadius()) + y + 1));
-		a.setDirection(direction);
+		a.setXY((int)(Math.cos(Math.toRadians(effectDirection)) * (radius + a.getRadius()) + x + 1),
+				(int)(Math.sin(Math.toRadians(effectDirection)) * (radius + a.getRadius()) + y + 1));
+		a.setDirection(effectDirection);
 		myGame.addObj(a);
-		b.setXY((int)(Math.cos(Math.toRadians(direction)) * (radius + b.getRadius()) * -1 + x - 1),
-				(int)(Math.sin(Math.toRadians(direction)) * (radius + b.getRadius()) * -1 + y - 1));
-		b.setDirection(direction + 180);
+		b.setXY((int)(Math.cos(Math.toRadians(effectDirection)) * (radius + b.getRadius()) * -1 + x - 1),
+				(int)(Math.sin(Math.toRadians(effectDirection)) * (radius + b.getRadius()) * -1 + y - 1));
+		b.setDirection(effectDirection + 180);
 		myGame.addObj(b);
 	}
 

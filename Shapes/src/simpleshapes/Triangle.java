@@ -7,6 +7,7 @@ public class Triangle extends SimpleShape{
 	public Triangle (Player o) {
 		super(o);
 		value = 3;
+		cost = 30;
 		imgName = "triangle.png";
 	}
 }

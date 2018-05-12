@@ -9,7 +9,7 @@ public class Haus extends GiantShape {
 		super(o, 999999);
 		speed = 2;
 		radius = 30;
-		imgName = "house.png";
+		imgName = "neuhaus.jpg";
 	}
 	
 	public void process() {

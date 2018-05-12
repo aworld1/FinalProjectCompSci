@@ -2,7 +2,7 @@ package superclasses;
 
 import handlers.*;
 
-public class Shape extends MovingObject{
+public class Shape extends MovingObject implements Cloneable{
 	protected int value;
 	protected Player owner;
 	protected int cost;
@@ -84,5 +84,13 @@ public class Shape extends MovingObject{
 	
 	public String getImgName() {
 		return imgName;
+	}
+	
+	public Shape clone(){  
+	    try{  
+	        return (Shape)super.clone();  
+	    }catch(Exception e){ 
+	        return null; 
+	    }
 	}
 }

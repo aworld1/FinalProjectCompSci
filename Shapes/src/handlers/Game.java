@@ -44,10 +44,18 @@ public class Game {
 		ui.clear();
 		processCollision();
 		processObjs();
+		processPlayers();
 		draw();
 		ui.getBuffer().show();
 	}
 	
+	private void processPlayers() {
+		for (int i = 0; i < players.length; i++) {
+			players[i].gainEnergy(2);
+			System.out.println(players[i].getEnergy());
+		}
+	}
+
 	public void draw() {
 		Graphics g = ui.getG();
 		g.setColor(Color.white);
@@ -155,6 +163,10 @@ public class Game {
 	
 	public void spawnShapeByPlayerIndex(Shape o, int x) {
 		spawnShapeByPlayer(o, players[x]);
+	}
+	
+	public void spawnShape(Shape o) {
+		spawnShapeByPlayer(o,o.getOwner());
 	}
 	
 	public void addToLog(String s) {

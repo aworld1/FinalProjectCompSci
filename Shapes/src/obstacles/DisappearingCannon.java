@@ -6,8 +6,8 @@ import superclasses.Shape;
 public class DisappearingCannon extends Cannon{
 	
 	
-	public DisappearingCannon(int x, int y, int direction, int speed, int turnSpeed, int fireCooldown) {
-		super(x, y, direction, speed, turnSpeed, fireCooldown);
+	public DisappearingCannon(int x, int y, int direction, int speed, int edirection, int turnSpeed, int fireCooldown) {
+		super(x, y, direction, speed, edirection, turnSpeed, fireCooldown);
 		imgName = "cannon2.png";
 	}
 
