@@ -11,8 +11,17 @@ public class MovingObject extends FieldObject {
 	protected int direction;
 	protected double speed;
 	protected double radius;
-	protected BufferedImage img;
 	protected double rotation;
+	protected BufferedImage img;
+	
+	public MovingObject(int x, int y, int direction, double speed, double radius, double rotation) {
+		this.x = x;
+		this.y = y;
+		this.direction = direction;
+		this.speed = speed;
+		this.radius = radius;
+		this.rotation = rotation;
+	}
 	
 	public MovingObject() {
 		super();
@@ -65,6 +74,20 @@ public class MovingObject extends FieldObject {
 	
 	public int getDirection() {
 		return direction;
+	}
+	
+	public void process() {
+		move();
+		draw();
+	}
+	
+	public boolean colliding(FieldObject s) {
+		if (s instanceof Shape) {
+			double space = this.radius + ((Shape) s).getRadius();
+			double distance = Math.sqrt(Math.pow(x - ((Shape) s).getX(), 2) + Math.pow(y - ((Shape) s).getY(), 2));
+			return distance <= space;
+		}
+		return false;
 	}
 	
 	public void move() {
