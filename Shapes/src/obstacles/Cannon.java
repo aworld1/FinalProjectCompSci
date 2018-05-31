@@ -6,24 +6,19 @@ public class Cannon extends MovingObject {
 	protected int fireFrame;
 	protected int turnSpeed;
 	protected int effectDirection;
+	
 	public Cannon(int x, int y, int direction, int speed, int edirection, int turnSpeed, int fireCooldown) {
-		this.direction = direction;
+		super(x, y, direction, speed, 40, direction);
 		this.effectDirection = edirection;
-		this.speed = speed;
-		this.x = x;
-		this.y = y;
 		this.turnSpeed = turnSpeed;
 		this.fireCooldown = fireCooldown;
 		img = myGame.getUI().readImage("cannon.png");
-		radius = 40;
 		fireFrame = 0;
-		rotation = direction;
 	}
 	
 	public void process() {
-		move();
+		super.process();
 		checkFire();
-		draw();
 		effectDirection += turnSpeed;
 		rotation = effectDirection;
 	}
@@ -48,14 +43,5 @@ public class Cannon extends MovingObject {
 				(int)(Math.sin(Math.toRadians(effectDirection)) * (radius + b.getRadius()) * -1 + y - 1));
 		b.setDirection(effectDirection + 180);
 		myGame.addObj(b);
-	}
-
-	public boolean colliding(FieldObject s) {
-		if (s instanceof Shape) {
-			double space = this.radius + ((Shape) s).getRadius();
-			double distance = Math.sqrt(Math.pow(x - ((Shape) s).getX(), 2) + Math.pow(y - ((Shape) s).getY(), 2));
-			return distance <= space;
-		}
-		return false;
 	}
 }

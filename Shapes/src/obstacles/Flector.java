@@ -7,21 +7,17 @@ import superclasses.Shape;
 public class Flector extends MovingObject {
 	protected double effectDirection;
 	protected double turnSpeed;
+	
 	public Flector(int x, int y, int direction, int speed, double effectDirection, double turnSpeed) {
-		this.direction = direction;
-		this.speed = speed;
-		this.x = x;
-		this.y = y;
+		super(x, y, direction, speed, 20, 0);
 		this.effectDirection = effectDirection;
 		this.turnSpeed = turnSpeed;
 		img = myGame.getUI().readImage("flector.png");
-		radius = 20;
 	}
 
 	public void process() {
-		move();
+		super.process();
 		effectDirection += turnSpeed;
-		draw();
 	}
 
 	public FieldObject evaluate(FieldObject s, int c) {
@@ -29,15 +25,6 @@ public class Flector extends MovingObject {
 			((Shape) s).setDirection((int) effectDirection);
 		}
 		return null;
-	}
-
-	public boolean colliding(FieldObject s) {
-		if (s instanceof Shape) {
-			double space = this.radius + ((Shape) s).getRadius();
-			double distance = Math.sqrt(Math.pow(x - ((Shape) s).getX(), 2) + Math.pow(y - ((Shape) s).getY(), 2));
-			return distance <= space;
-		}
-		return false;
 	}
 
 	public void draw() {
