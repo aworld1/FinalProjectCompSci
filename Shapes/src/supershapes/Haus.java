@@ -8,15 +8,14 @@ public class Haus extends GiantShape {
 	public Haus(Player o) {
 		super(o, 999999);
 		speed = 2;
-		radius = 30;
-		imgName = "neuhaus.jpg";
+		radius = 0;
+		img = myGame.getUI().readImage("neuhaus.jpg");
 	}
 	
 	public void process() {
 		move();
-		radius = 100;
 		draw();
-		radius = 30;
+		radius++;
 		rotation++;
 	}
 }

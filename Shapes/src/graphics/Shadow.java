@@ -4,10 +4,6 @@ import java.awt.AlphaComposite;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 
 import superclasses.*;
 
@@ -17,18 +13,12 @@ public class Shadow extends FieldObject{
 	private int y;
 	private double radius;
 	private double opacity;
-	public Shadow(String imgName, MovingObject s, double r) {
+	public Shadow(BufferedImage img, MovingObject s, double r) {
 		x = s.getX();
 		y = s.getY();
 		radius = s.getRadius();
 		myGame = s.getGame();
-		img = null;
-		try {
-			img = ImageIO.read(new File(imgName));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		img = myGame.getUI().rotate(img, 90+(r));
+		this.img = myGame.getUI().rotate(img, r);
 		opacity = 0.5;
 	}
 	

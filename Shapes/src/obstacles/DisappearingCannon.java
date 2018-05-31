@@ -8,7 +8,7 @@ public class DisappearingCannon extends Cannon{
 	
 	public DisappearingCannon(int x, int y, int direction, int speed, int edirection, int turnSpeed, int fireCooldown) {
 		super(x, y, direction, speed, edirection, turnSpeed, fireCooldown);
-		imgName = "cannon2.png";
+		img = myGame.getUI().readImage("cannon2.png");
 	}
 
 	public FieldObject evaluate(FieldObject s, int c) {

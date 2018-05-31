@@ -8,6 +8,7 @@ public class CircleFirework extends Firework {
 
 	public CircleFirework(Player o) {
 		super(o);
+		cost = 40;
 	}
 	
 	public void addObj(int d) {

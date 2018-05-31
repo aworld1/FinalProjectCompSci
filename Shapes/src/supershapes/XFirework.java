@@ -8,6 +8,7 @@ public class XFirework extends Firework {
 
 	public XFirework(Player o) {
 		super(o);
+		cost = 90;
 	}
 	
 	public void addObj(int d) {

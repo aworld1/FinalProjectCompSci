@@ -2,24 +2,23 @@ package graphics;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
+import java.io.IOException;
 
-import javax.swing.JFrame;
-
-import handlers.Game;
-public class UI extends Canvas implements Runnable, KeyListener {
-	private static final long serialVersionUID = 2664539955261714283L;
-	private Graphics g;
-	private BufferStrategy bs;
-	private Window window;
-	private Game game;
+import javax.imageio.ImageIO;
+public class UI extends Canvas implements Runnable, KeyListener, MouseListener {
+	protected static final long serialVersionUID = 2664539955261714283L;
+	protected Graphics g;
+	protected BufferStrategy bs;
+	protected Window window;
 	public UI() {
-		window = new Window(700,1200,"",this);
+		window = new Window(1200,700,this);
 		run();
-		addKeyListener(this);
 	}
 	
-	public void setGame(Game game) {
-		this.game = game;
+	public UI(Window window) {
+		this.window = window;
+		window.init(this);
+		run();
 	}
 
 	@Override
@@ -31,13 +30,6 @@ public class UI extends Canvas implements Runnable, KeyListener {
 		}
 		
 		g = bs.getDrawGraphics();
-		
-		JFrame frame = new JFrame("");
-		frame.pack();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setResizable(false);
-		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
 		g.dispose();
 		bs.show();
 	}
@@ -64,6 +56,9 @@ public class UI extends Canvas implements Runnable, KeyListener {
 	}
 	
 	public BufferedImage rotate(BufferedImage image, double angle) {
+		if (getGraphicsConfiguration() == null) {
+			return image;
+		}
 		angle = Math.toRadians(angle);
 	    double sin = Math.abs(Math.sin(angle)), cos = Math.abs(Math.cos(angle));
 	    int w = image.getWidth(), h = image.getHeight();
@@ -90,62 +85,47 @@ public class UI extends Canvas implements Runnable, KeyListener {
 		g.drawPolygon(xVals,yVals,sides + 1);
 	}
 	
+	public void draw(BufferedImage img, int rotation, int x, int y, int width, int height) {
+		img = rotate(img, rotation);
+		getG().drawImage(img, x, y, width, height, null);
+	}
+	
 	public Window getWindow() {
 		return window;
 	}
-
-	@Override
-	public void keyPressed(KeyEvent e) {
-		
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		switch (e.getKeyCode()) {
-		case KeyEvent.VK_1:
-			game.getPlayers()[0].getInventory(0).use(game);
-			break;
-		case KeyEvent.VK_2:
-			game.getPlayers()[0].getInventory(1).use(game);
-			break;
-		case KeyEvent.VK_3:
-			game.getPlayers()[0].getInventory(2).use(game);
-			break;
-		case KeyEvent.VK_4:
-			game.getPlayers()[0].getInventory(3).use(game);
-			break;
-		case KeyEvent.VK_5:
-			game.getPlayers()[0].getInventory(4).use(game);
-			break;
-		case KeyEvent.VK_6:
-			game.getPlayers()[0].getInventory(5).use(game);
-			break;
+	
+	public BufferedImage readImage(String imgName) {
+		ClassLoader cldr = getClass().getClassLoader();
+		BufferedImage img = null;
+		try {
+			img = ImageIO.read(cldr.getResource("icons/" + imgName));
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		
-		switch (e.getKeyCode()) {
-		case KeyEvent.VK_B:
-			game.getPlayers()[1].getInventory(0).use(game);
-			break;
-		case KeyEvent.VK_N:
-			game.getPlayers()[1].getInventory(1).use(game);
-			break;
-		case KeyEvent.VK_M:
-			game.getPlayers()[1].getInventory(2).use(game);
-			break;
-		case KeyEvent.VK_COMMA:
-			game.getPlayers()[1].getInventory(3).use(game);
-			break;
-		case KeyEvent.VK_PERIOD:
-			game.getPlayers()[1].getInventory(4).use(game);
-			break;
-		case KeyEvent.VK_SLASH:
-			game.getPlayers()[1].getInventory(5).use(game);
-			break;
-		}
+		return img;
 	}
 
 	@Override
-	public void keyTyped(KeyEvent e) {
-		
-	}
+	public void keyPressed(KeyEvent e) {}
+
+	@Override
+	public void keyReleased(KeyEvent e) {}
+
+	@Override
+	public void keyTyped(KeyEvent e) {}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {}
+
+	@Override
+	public void mouseExited(MouseEvent e) {}
+
+	@Override
+	public void mousePressed(MouseEvent e) {}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {}
 }

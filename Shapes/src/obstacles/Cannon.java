@@ -14,7 +14,7 @@ public class Cannon extends MovingObject {
 		this.y = y;
 		this.turnSpeed = turnSpeed;
 		this.fireCooldown = fireCooldown;
-		imgName = "cannon.png";
+		img = myGame.getUI().readImage("cannon.png");
 		radius = 40;
 		fireFrame = 0;
 		rotation = direction;

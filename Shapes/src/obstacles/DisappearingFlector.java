@@ -5,7 +5,7 @@ public class DisappearingFlector extends Flector {
 
 	public DisappearingFlector(int x, int y, int direction, int speed, double effectDirection, double turnSpeed) {
 		super(x, y, direction, speed, effectDirection, turnSpeed);
-		imgName = "flector2.png";
+		img = myGame.getUI().readImage("flector2.png");
 	}
 	
 	public FieldObject evaluate(FieldObject s, int c) {

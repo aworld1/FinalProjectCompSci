@@ -1,11 +1,6 @@
 package superclasses;
 
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
+import java.awt.image.*;
 
 import graphics.Dimensions;
 import graphics.Shadow;
@@ -16,7 +11,7 @@ public class MovingObject extends FieldObject {
 	protected int direction;
 	protected double speed;
 	protected double radius;
-	protected String imgName;
+	protected BufferedImage img;
 	protected double rotation;
 	
 	public MovingObject() {
@@ -24,7 +19,7 @@ public class MovingObject extends FieldObject {
 	}
 	
 	public void dropShadow() {
-		myGame.addObj(new Shadow(imgName, this, rotation));
+		myGame.addObj(new Shadow(img, this, rotation));
 	}
 	
 	public double getSpeed() {
@@ -82,14 +77,6 @@ public class MovingObject extends FieldObject {
 	}
 	
 	public void draw() {
-		Graphics g = myGame.getUI().getG();
-		BufferedImage img = null;
-		try {
-			img = ImageIO.read(new File(imgName));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		img = myGame.getUI().rotate(img, rotation);
-		g.drawImage(img, (int)(x-radius), (int)(y-radius), (int)(2*radius), (int)(2*radius), null);
+		myGame.getUI().draw(img, (int)rotation, (int)(x-radius), (int)(y-radius), (int)(2*radius), (int)(2*radius));
 	}
 }

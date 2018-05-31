@@ -1,12 +1,4 @@
 package superclasses;
-
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
 import handlers.Player;
 
 public class Firework extends SuperShape {
@@ -16,7 +8,7 @@ public class Firework extends SuperShape {
 		value = 0;
 		speed = 8;
 		radius = 30;
-		imgName = "firework.png";
+		img = myGame.getUI().readImage("firework.png");
 	}
 	public void doBeforeDie() {
 		if (!dead) {
@@ -69,14 +61,6 @@ public class Firework extends SuperShape {
 	
 
 	public void draw() {
-		Graphics g = myGame.getUI().getG();
-		BufferedImage img = null;
-		try {
-			img = ImageIO.read(new File(imgName));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		img = myGame.getUI().rotate(img, direction);
-		g.drawImage(img, (int)(x-radius), (int)(y-radius), (int)radius*2, (int)(radius*2), null);
+		myGame.getUI().draw(img, (int)direction, (int)(x-radius), (int)(y-radius), (int)(2*radius), (int)(2*radius));
 	}
 }

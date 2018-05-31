@@ -9,8 +9,10 @@ public class Shape extends MovingObject implements Cloneable{
 	
 	public Shape(Player o) {
 		owner = o;
+		radius = 13;
 		x = owner.getTarget().getX();
 		y = owner.getTarget().getY();
+		myGame = o.getGame();
 		setCost(value);
 	}
 	
@@ -68,11 +70,6 @@ public class Shape extends MovingObject implements Cloneable{
 	public void setCost(int cost) {
 		this.cost = cost;
 	}
-	
-	public String getLoc() {
-		// Debugging purposes
-		return "(" + x + ", " + y + ")";
-	}
 
 	public double getRotation() {
 		return rotation;
@@ -82,15 +79,27 @@ public class Shape extends MovingObject implements Cloneable{
 		this.rotation = rotation;
 	}
 	
-	public String getImgName() {
-		return imgName;
-	}
-	
 	public Shape clone(){  
 	    try{  
 	        return (Shape)super.clone();  
 	    }catch(Exception e){ 
 	        return null; 
 	    }
+	}
+	
+	public double getDirToShape(Shape a) {
+		if (a.getX() - x == 0) {
+			if (a.getY() - y > 0) {
+				return 90;
+			}
+			return 270;
+		}
+		if (a.getY() - y == 0) {
+			if (a.getX() > 0) {
+				return 0;
+			}
+			return 180;
+		}
+		return Math.toDegrees(Math.atan2((a.getY() - y), (a.getX()) - x));
 	}
 }

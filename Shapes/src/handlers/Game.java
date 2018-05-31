@@ -1,5 +1,6 @@
 package handlers;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.*;
 
 import graphics.*;
@@ -12,54 +13,121 @@ import superclasses.*;
 import superclasses.Shape;
 
 public class Game {
-	private Player players[];
+	protected Player players[];
 	private Goal goals[];
 	private ArrayList<FieldObject> objs;
 	private String[] log;
 	private final int LOG_SIZE = 5;
-	private UI ui;
-	public Game(UI u) {
+	private GameUI ui;
+	private Timer timer;
+	protected BufferedImage img;
+	protected boolean paused;
+	protected boolean someoneDead;
+	protected boolean forceClose;
+	public Game(GameUI u) {
 		ui = u;
 		objs = new ArrayList<FieldObject>();
 		log = new String[LOG_SIZE];
+		log[0] = "Let the game begin!";
 		players = new Player[2];
 		goals = new Goal[2];
-		players[0] = new Player(Dimensions.getX() + 100, Dimensions.getY() + (Dimensions.getHeight() / 2), 90);
-		players[1] = new Player(Dimensions.getX() + Dimensions.getWidth() - 100, Dimensions.getY() + (Dimensions.getHeight() / 2), 270);
-		goals[0] = new Goal(Dimensions.getX() + 60);
-		goals[1] = new Goal(Dimensions.getX() + Dimensions.getWidth() - 60);
+		players[0] = new Player(this, Dimensions.getX() + 100, Dimensions.getY() + (Dimensions.getHeight() / 2), 90);
+		players[1] = new Player(this, Dimensions.getX() + Dimensions.getWidth() - 50, Dimensions.getY() + (Dimensions.getHeight() / 2), 270);
+		goals[0] = new Goal(Dimensions.getX() + 60, players[0]);
+		goals[1] = new Goal(Dimensions.getX() + Dimensions.getWidth() - 20, players[1]);
 		this.addObj(players[0].getTarget());
 		this.addObj(players[1].getTarget());
 		this.addObj(goals[0]);
 		this.addObj(goals[1]);
-		
+		paused = false; forceClose = false; someoneDead = false;
+		img = getUI().readImage("gameback.png");
 		ui.setGame(this);
 	}
 	
-	public UI getUI() {
+	public void addMap(Map m) {
+		for (int i = 0; i < m.getObjs().size(); i++) {
+			addObj(m.getObjs().get(i));
+		}
+	}
+	
+	public void togglePause() {
+		if (someoneDead) {
+			return;
+		}
+		if (paused) {
+			runGame();
+		}
+		else {
+			stopGame();
+		}
+		paused = !paused;
+	}
+	
+	public GameUI getUI() {
 		return ui;
 	}
 	
+	public void forceClose() {
+		forceClose = true;
+	}
+	
 	public void nextFrame() {
+		if (forceClose) {
+			ui.returnToMenu();
+			return;
+		}
 		ui.clear();
 		processCollision();
+		draw();
 		processObjs();
 		processPlayers();
-		draw();
 		ui.getBuffer().show();
 	}
 	
-	private void processPlayers() {
+	protected void processPlayers() {
 		for (int i = 0; i < players.length; i++) {
-			players[i].gainEnergy(2);
-			System.out.println(players[i].getEnergy());
+			players[i].gainEnergy(1);
+			if (players[i].getHealth() <= 0) {
+				playerDied(i);
+			}
 		}
+	}
+	
+	public boolean isSomeoneDead() {
+		return someoneDead;
+	}
+	
+	public void playerDied(int playerNo) {
+		someoneDead = true;
+		if (playerNo == 0) {
+			playerNo = 2;
+		}
+		Graphics g = ui.getG();
+		g.setFont(new Font("Helvetica", Font.PLAIN, 40));
+		g.setColor(Color.gray);
+		g.fillRect(400, 250, 425, 200);
+		g.setColor(Color.black);
+		g.drawRect(400, 250, 425, 200);
+		g.setColor(Color.white);
+		g.drawString("Player " + playerNo + " wins!", 500, 360);
+		stopGame();
+		ui.getBuffer().show();
 	}
 
 	public void draw() {
 		Graphics g = ui.getG();
 		g.setColor(Color.white);
-		g.drawRect(Dimensions.getX(), Dimensions.getY(), Dimensions.getWidth(), Dimensions.getHeight());
+		((Graphics2D) g).setComposite(AlphaComposite.SrcOver.derive((float) 0.5));
+		g.drawImage(img, 0,0, ui);
+		g.setFont(new Font("Helvetica", Font.PLAIN, 20));
+		g.drawString("" + players[0].getEnergy(), 225, 35);
+		g.drawString("" + players[0].getHealth(), 340, 35);
+		g.drawString("" + players[1].getHealth(), 920, 35);
+		g.drawString("" + players[1].getEnergy(), 1010, 35);
+		((Graphics2D) g).setComposite(AlphaComposite.SrcOver);
+		g.setFont(new Font("Helvetica", Font.PLAIN, 12));
+		g.drawRect((int)(Dimensions.getWidth()*0.5-100), Dimensions.getHeight()+80, 300, 30);
+		g.drawString(log[0], (int)(Dimensions.getWidth()*0.5315-log[0].length()*2), Dimensions.getHeight()+100);
 	}
 	
 	public void processCollision() {
@@ -88,17 +156,24 @@ public class Game {
 	
 	public void processObjs() {
 		for (int i = 0; i < objs.size(); i++) {
-			objs.get(i).process();
+			if (objs.get(i) != null)
+				objs.get(i).process();
 		}
 	}
 	
 	public void runGame() {
-		new Timer().scheduleAtFixedRate(new TimerTask(){
+		timer = new Timer();
+		timer.scheduleAtFixedRate(new TimerTask(){
 		    @Override
 		    public void run(){
 				nextFrame();
 		    }
 		},0,40);
+	}
+	
+	public void stopGame() {
+		timer.cancel();
+		timer.purge();
 	}
 	
 	public Player[] getPlayers() {
@@ -107,17 +182,6 @@ public class Game {
 
 	public void setPlayers(Player[] players) {
 		this.players = players;
-	}
-	
-	public String getShapesString() {
-		// For debugging purposes
-		String x = "";
-		for (int i = 0; i < objs.size(); i++) {
-			if (objs.get(i) instanceof Shape)
-			x += "Shape " + i + " Value: " + ((Shape)objs.get(i)).getValue() + 
-					" Loc: " + ((Shape)objs.get(i)).getLoc() + "\n";
-		}
-		return x;
 	}
 
 	public ArrayList<FieldObject> getObjs() {
@@ -222,5 +286,9 @@ public class Game {
 			return new Pentagon(new Player());
 		}
 		return null;
+	}
+
+	public boolean getPause() {
+		return paused;
 	}
 }

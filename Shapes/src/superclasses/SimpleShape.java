@@ -7,7 +7,6 @@ public class SimpleShape extends Shape {
 		super(o);
 		direction = 0;
 		speed = 3;
-		radius = 10;
 	}
 	
 	public int compareTo(FieldObject s) {

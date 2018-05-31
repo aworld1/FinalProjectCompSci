@@ -8,8 +8,10 @@ import superclasses.Shape;
 
 public class Goal extends FieldObject{
 	private int x;
-	public Goal(int newX) {
+	private Player owner;
+	public Goal(int newX, Player p) {
 		this.setX(newX);
+		setOwner(p);
 	}
 	public int getX() {
 		return x;
@@ -25,7 +27,7 @@ public class Goal extends FieldObject{
 	}
 	public FieldObject evaluate(FieldObject fieldObject, int compareTo) {
 		if (fieldObject instanceof Shape) {
-			((Shape)fieldObject).getOwner().loseHealth(((Shape)fieldObject).getValue());
+			owner.loseHealth(((Shape)fieldObject).getValue());
 			return fieldObject;
 		}
 		return null;
@@ -40,9 +42,21 @@ public class Goal extends FieldObject{
 		g.setColor(Color.orange);
 		if (x >= 350) {
 			g.fillRect(x,Dimensions.getY(),10,Dimensions.getHeight());
+			g.setColor(Color.red);
+			g.fillRect(x,(int)(Dimensions.getY() + Dimensions.getHeight()/2 - Dimensions.getHeight()/2 * ((double)owner.getHealth() / owner.getStartHealth())),
+						10,(int)(Dimensions.getHeight() * ((double)owner.getHealth() / owner.getStartHealth())));
 		}
 		else {
 			g.fillRect(x-10,Dimensions.getY(),10,Dimensions.getHeight());
+			g.setColor(Color.red);
+			g.fillRect(x-10,(int)(Dimensions.getY() + Dimensions.getHeight()/2 - Dimensions.getHeight()/2 * ((double)owner.getHealth() / owner.getStartHealth())),
+					10,(int)(Dimensions.getHeight() * ((double)owner.getHealth() / owner.getStartHealth())));
 		}
+	}
+	public Player getOwner() {
+		return owner;
+	}
+	public void setOwner(Player owner) {
+		this.owner = owner;
 	}
 }

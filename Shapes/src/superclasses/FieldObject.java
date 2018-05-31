@@ -27,7 +27,6 @@ public class FieldObject {
 		if (!dead) {
 			String l = myGame.createDeathSentence(this);
 			myGame.addToLog(l);
-			System.out.println(l);
 		}
 		dead = true;
 		return;

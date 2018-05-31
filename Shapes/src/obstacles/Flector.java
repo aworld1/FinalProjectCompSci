@@ -1,12 +1,5 @@
 package obstacles;
 
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
 import superclasses.FieldObject;
 import superclasses.MovingObject;
 import superclasses.Shape;
@@ -21,7 +14,7 @@ public class Flector extends MovingObject {
 		this.y = y;
 		this.effectDirection = effectDirection;
 		this.turnSpeed = turnSpeed;
-		imgName = "flector.png";
+		img = myGame.getUI().readImage("flector.png");
 		radius = 20;
 	}
 
@@ -48,14 +41,6 @@ public class Flector extends MovingObject {
 	}
 
 	public void draw() {
-		Graphics g = myGame.getUI().getG();
-		BufferedImage img = null;
-		try {
-			img = ImageIO.read(new File(imgName));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		img = myGame.getUI().rotate(img, effectDirection);
-		g.drawImage(img, (int) (x - radius), (int) (y - radius), (int) (2 * radius), (int) (2 * radius), null);
+		myGame.getUI().draw(img, (int)effectDirection, (int) (x - radius), (int) (y - radius), (int) (2 * radius), (int) (2 * radius));
 	}
 }

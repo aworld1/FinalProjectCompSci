@@ -9,6 +9,7 @@ public class TriangleFirework extends Firework {
 
 	public TriangleFirework(Player o) {
 		super(o);
+		cost = 140;
 	}
 	
 	public void addObj(int d) {
