@@ -12,10 +12,11 @@ public class Flector extends MovingObject {
 		super(x, y, direction, speed, 20, 0);
 		this.effectDirection = effectDirection;
 		this.turnSpeed = turnSpeed;
-		img = myGame.getUI().readImage("flector.png");
 	}
 
 	public void process() {
+		if (img == null)
+			img = myGame.getUI().readImage("flector.png");
 		super.process();
 		effectDirection += turnSpeed;
 	}

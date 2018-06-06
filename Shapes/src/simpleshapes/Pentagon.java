@@ -8,6 +8,11 @@ public class Pentagon extends SimpleShape{
 		super(o);
 		value = 5;
 		cost = 50;
-		img = myGame.getUI().readImage("pentagon.png");
+	}
+	
+	public void process() {
+		if (img == null)
+			img = myGame.getUI().readImage("pentagon.png");
+		super.process();
 	}
 }

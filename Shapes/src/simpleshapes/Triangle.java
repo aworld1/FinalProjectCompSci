@@ -8,6 +8,11 @@ public class Triangle extends SimpleShape{
 		super(o);
 		value = 3;
 		cost = 30;
-		img = myGame.getUI().readImage("triangle.png");
+	}
+	
+	public void process() {
+		if (img == null)
+			img = myGame.getUI().readImage("triangle.png");
+		super.process();
 	}
 }

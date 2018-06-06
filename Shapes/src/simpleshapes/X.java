@@ -8,6 +8,11 @@ public class X extends SimpleShape{
 		super(o);
 		value = 2;
 		cost = 20;
-		img = myGame.getUI().readImage("x.png");
+	}
+	
+	public void process() {
+		if (img == null)
+			img = myGame.getUI().readImage("x.png");
+		super.process();
 	}
 }

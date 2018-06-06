@@ -9,10 +9,11 @@ public class Haus extends GiantShape {
 		super(o, 999999);
 		speed = 2;
 		radius = 0;
-		img = myGame.getUI().readImage("neuhaus.jpg");
 	}
 	
 	public void process() {
+		if (img == null)
+			img = myGame.getUI().readImage("neuhaus.jpg");
 		move();
 		draw();
 		radius++;

@@ -12,11 +12,12 @@ public class Cannon extends MovingObject {
 		this.effectDirection = edirection;
 		this.turnSpeed = turnSpeed;
 		this.fireCooldown = fireCooldown;
-		img = myGame.getUI().readImage("cannon.png");
 		fireFrame = 0;
 	}
 	
 	public void process() {
+		if (img == null)
+			img = myGame.getUI().readImage("cannon.png");
 		super.process();
 		checkFire();
 		effectDirection += turnSpeed;

@@ -8,6 +8,11 @@ public class Circle extends SimpleShape {
 		super(o);
 		value = 1;
 		cost = 10;
-		img = myGame.getUI().readImage("circle.png");
+	}
+	
+	public void process() {
+		if (img == null)
+			img = myGame.getUI().readImage("circle.png");
+		super.process();
 	}
 }

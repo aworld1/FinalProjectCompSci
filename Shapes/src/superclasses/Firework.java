@@ -7,8 +7,7 @@ public class Firework extends SuperShape {
 		super(o);
 		value = 0;
 		speed = 8;
-		radius = 30;
-		img = myGame.getUI().readImage("firework.png");
+		radius = 20;
 	}
 	public void doBeforeDie() {
 		if (!dead) {
@@ -20,9 +19,14 @@ public class Firework extends SuperShape {
 	}
 	
 	public void process() {
+		if (img == null)
+			img = myGame.getUI().readImage("circle.png");
 		move();
 		draw();
 		reduceSpeed();
+		if (radius < 30) {
+			radius++;
+		}
 	}
 	
 	public void reduceSpeed() {

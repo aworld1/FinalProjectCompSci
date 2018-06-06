@@ -1,22 +1,27 @@
 package supershapes;
 
 import handlers.Player;
+import handlers.Target;
 import superclasses.*;
 
 public class Missile extends SuperShape {
 
 	public Missile(Player o) {
 		super(o);
-		img = myGame.getUI().readImage("missile.png");
 		speed = 4;
 		cost = 100;
-		radius = 25;
+		radius = 20;
 		value = 0;
 	}
 	
 	public void process() {
+		if (img == null)
+			img = myGame.getUI().readImage("missile.png");
 		direction = (int) getNextDir();
 		rotation = direction;
+		if (radius < 25) {
+			radius++;
+		}
 		move();
 		draw();
 	}
@@ -51,6 +56,8 @@ public class Missile extends SuperShape {
 	public FieldObject evaluate(FieldObject s, int c) {
 		if (s instanceof SimpleShape)
 			return s;
+		if (s instanceof Target)
+			return null;
 		return this;
 	}
 }

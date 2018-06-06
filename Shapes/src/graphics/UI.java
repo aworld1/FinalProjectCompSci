@@ -20,6 +20,11 @@ public class UI extends Canvas implements Runnable, KeyListener, MouseListener {
 		window.init(this);
 		run();
 	}
+	
+	public UI(boolean window) {
+		super();
+		run();
+	}
 
 	@Override
 	public void run() {

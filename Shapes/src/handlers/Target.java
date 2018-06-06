@@ -10,10 +10,11 @@ public class Target extends MovingObject {
 		speed = 7;
 		radius = 10;
 		myGame = g;
-		img = myGame.getUI().readImage("circle.png");
 	}
 	
 	public void process() {
+		if (img == null)
+			img = myGame.getUI().readImage("circle.png");
 		move();
 		draw();
 		dropShadow();

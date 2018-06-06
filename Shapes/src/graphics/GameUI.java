@@ -9,14 +9,17 @@ public class GameUI extends UI {
 	private static final long serialVersionUID = 3843670119322135505L;
 	protected Game game;
 	protected boolean playerTwoOn;
+	private boolean everClicked;
 	
 	public GameUI() {
 		super();
+		setEverClicked(false);
 		playerTwoOn = true;
 	}
 	
 	public GameUI(Window window) {
 		super(window);
+		setEverClicked(false);
 		playerTwoOn = true;
 	}
 
@@ -76,7 +79,8 @@ public class GameUI extends UI {
 		}
 	}
 	
-	public void mouseClicked(MouseEvent e) {
+	public void mouseReleased(MouseEvent e) {
+		setEverClicked(true);
 		System.out.println(e.getX() + " " + e.getY());
 		if (e.getX() >= 380 && e.getX() <= 630 && e.getY() >= 0 && e.getY() <= 50) {
 			game.togglePause();
@@ -98,5 +102,13 @@ public class GameUI extends UI {
 		game.stopGame();
 		window.getFrame().remove(this);
 		new Menu(new MenuUI(window));
+	}
+
+	public boolean getEverClicked() {
+		return everClicked;
+	}
+
+	public void setEverClicked(boolean everClicked) {
+		this.everClicked = everClicked;
 	}
 }

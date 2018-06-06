@@ -6,8 +6,13 @@ import superclasses.*;
 
 public class Map {
 	private ArrayList<FieldObject> objs;
-	public Map(ArrayList<FieldObject> arr) {
+	private String mapName;
+	public Map(ArrayList<FieldObject> arr, String mapN) {
 		objs = arr;
+		setMapName(mapN);
+	}
+	public Map() {
+		objs = new ArrayList<FieldObject>();
 	}
 	public void initMap() {
 		Game game = new Game(new GameUI());
@@ -17,5 +22,11 @@ public class Map {
 	}
 	public ArrayList<FieldObject> getObjs() {
 		return objs;
+	}
+	public String getMapName() {
+		return mapName;
+	}
+	public void setMapName(String mapName) {
+		this.mapName = mapName;
 	}
 }

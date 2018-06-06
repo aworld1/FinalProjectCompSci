@@ -60,7 +60,7 @@ public class Player {
 		inventory[2] = new InventorySlot(new Triangle(this), 650);
 		inventory[3] = new InventorySlot(new Square(this), 800);
 		inventory[4] = new InventorySlot(new Pentagon(this), 1000);
-		inventory[5] = new InventorySlot(new Missile(this), 4000);
+		inventory[5] = new InventorySlot(new Guard(this), 4000);
 	}
 	public void addSuperShape(SuperShape s, int c) {
 		inventory[5] = new InventorySlot(s, c);

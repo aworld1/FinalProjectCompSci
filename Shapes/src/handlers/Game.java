@@ -31,7 +31,7 @@ public class Game {
 		log[0] = "Let the game begin!";
 		players = new Player[2];
 		goals = new Goal[2];
-		players[0] = new Player(this, Dimensions.getX() + 100, Dimensions.getY() + (Dimensions.getHeight() / 2), 90);
+		players[0] = new Player(this, Dimensions.getX() + 90, Dimensions.getY() + (Dimensions.getHeight() / 2), 90);
 		players[1] = new Player(this, Dimensions.getX() + Dimensions.getWidth() - 50, Dimensions.getY() + (Dimensions.getHeight() / 2), 270);
 		goals[0] = new Goal(Dimensions.getX() + 60, players[0]);
 		goals[1] = new Goal(Dimensions.getX() + Dimensions.getWidth() - 20, players[1]);
@@ -44,9 +44,9 @@ public class Game {
 		ui.setGame(this);
 	}
 	
-	public void addMap(Map m) {
-		for (int i = 0; i < m.getObjs().size(); i++) {
-			addObj(m.getObjs().get(i));
+	public void addMap(ArrayList<FieldObject> m) {
+		for (int i = 0; i < m.size(); i++) {
+			addObj(m.get(i));
 		}
 	}
 	
@@ -117,14 +117,21 @@ public class Game {
 	public void draw() {
 		Graphics g = ui.getG();
 		g.setColor(Color.white);
-		((Graphics2D) g).setComposite(AlphaComposite.SrcOver.derive((float) 0.5));
 		g.drawImage(img, 0,0, ui);
 		g.setFont(new Font("Helvetica", Font.PLAIN, 20));
 		g.drawString("" + players[0].getEnergy(), 225, 35);
 		g.drawString("" + players[0].getHealth(), 340, 35);
 		g.drawString("" + players[1].getHealth(), 920, 35);
 		g.drawString("" + players[1].getEnergy(), 1010, 35);
-		((Graphics2D) g).setComposite(AlphaComposite.SrcOver);
+		if (!ui.getEverClicked()) {
+			g.setFont(new Font("Helvetica", Font.PLAIN, 40));
+			g.setColor(Color.gray);
+			g.fillRect(400, 250, 425, 200);
+			g.setColor(Color.black);
+			g.drawRect(400, 250, 425, 200);
+			g.setColor(Color.white);
+			g.drawString("Click to activate keys", 430, 360);	
+		}
 		g.setFont(new Font("Helvetica", Font.PLAIN, 12));
 		g.drawRect((int)(Dimensions.getWidth()*0.5-100), Dimensions.getHeight()+80, 300, 30);
 		g.drawString(log[0], (int)(Dimensions.getWidth()*0.5315-log[0].length()*2), Dimensions.getHeight()+100);
@@ -140,7 +147,7 @@ public class Game {
 			for (int j = i; j < x.length; j++) {
 				thisObj = x[i];
 				thatObj = x[j];
-				if (thisObj != thatObj && thisObj.colliding(thatObj)) {
+				if (thisObj != null && thatObj != null && thisObj != thatObj && thisObj.colliding(thatObj)) {
 					a = thisObj.evaluate(thatObj,thisObj.compareTo(thatObj));
 					b = thatObj.evaluate(thisObj,thatObj.compareTo(thisObj));
 					if (a != null) {

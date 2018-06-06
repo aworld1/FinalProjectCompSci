@@ -13,7 +13,6 @@ public class Dodecagon extends GiantShape {
 		super(o, 12);
 		speed = 1.5;
 		cost = 120;
-		img = myGame.getUI().readImage("dodecagon.png");
 	}
 	
 	public void draw() {
@@ -27,5 +26,11 @@ public class Dodecagon extends GiantShape {
 		else {
 			g.drawString("" + giantLife,x-5,y+7);
 		}
+	}
+	
+	public void process() {
+		if (img == null)
+			img = myGame.getUI().readImage("dodecagon.png");
+		super.process();
 	}
 }

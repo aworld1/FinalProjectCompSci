@@ -17,7 +17,7 @@ public class AIGame extends Game {
 	private void processAI() {
 		Player ai = players[1];
 		int percentChance = 0;
-		percentChance -= ai.getHealth() * 3;
+		percentChance -= ai.getHealth() * 6;
 		percentChance += ai.getEnergy();
 		percentChance += getObjs().size();
 		if (Math.random() * 100 < percentChance) {

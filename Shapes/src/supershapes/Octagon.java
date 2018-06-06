@@ -13,7 +13,6 @@ public class Octagon extends GiantShape {
 		super(o, 8);
 		speed = 2;
 		cost = 80;
-		img = myGame.getUI().readImage("octagon.png");
 	}
 	
 	public void draw() {
@@ -22,5 +21,11 @@ public class Octagon extends GiantShape {
 		g.setColor(Color.decode("#7F3F98"));
 		g.setFont(new Font("Helvetica", Font.PLAIN, 18)); 
 		g.drawString("" + giantLife,x-5,y+6);
+	}
+	
+	public void process() {
+		if (img == null)
+			img = myGame.getUI().readImage("octagon.png");
+		super.process();
 	}
 }

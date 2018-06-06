@@ -7,6 +7,11 @@ public class Square extends SimpleShape{
 		super(o);
 		value = 4;
 		cost = 40;
-		img = myGame.getUI().readImage("square.png");
+	}
+	
+	public void process() {
+		if (img == null)
+			img = myGame.getUI().readImage("square.png");
+		super.process();
 	}
 }
