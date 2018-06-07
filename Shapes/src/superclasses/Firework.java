@@ -1,7 +1,8 @@
 package superclasses;
 import handlers.Player;
+import supershapes.*;
 
-public class Firework extends SuperShape {
+public abstract class Firework extends SuperShape {
 	protected boolean movingBackwards;
 	public Firework(Player o) {
 		super(o);
@@ -20,7 +21,7 @@ public class Firework extends SuperShape {
 	
 	public void process() {
 		if (img == null)
-			img = myGame.getUI().readImage("circle.png");
+			img = myGame.getUI().readImage("firework.png");
 		move();
 		draw();
 		reduceSpeed();
@@ -51,7 +52,7 @@ public class Firework extends SuperShape {
 	
 	public void addObj(int d) {
 		// Default creation is another firework
-		Shape a = new Firework(owner);
+		Shape a = new CircleFirework(owner);
 		a.setXY(x,y);
 		a.setDirection(d);
 		myGame.addObj(a);

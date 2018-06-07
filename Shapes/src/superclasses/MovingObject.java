@@ -5,7 +5,7 @@ import java.awt.image.*;
 import graphics.Dimensions;
 import graphics.Shadow;
 
-public class MovingObject extends FieldObject {
+public abstract class MovingObject extends FieldObject {
 	protected int x;
 	protected int y;
 	protected int direction;

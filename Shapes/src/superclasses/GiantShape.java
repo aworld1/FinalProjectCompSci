@@ -2,7 +2,7 @@ package superclasses;
 
 import handlers.Player;
 
-public class GiantShape extends SuperShape {
+public abstract class GiantShape extends SuperShape {
 	protected int giantLife;
 	public GiantShape(Player o, int l) {
 		super(o);

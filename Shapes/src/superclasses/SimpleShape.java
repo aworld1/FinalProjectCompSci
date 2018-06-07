@@ -2,7 +2,7 @@ package superclasses;
 
 import handlers.Player;
 
-public class SimpleShape extends Shape {
+public abstract class SimpleShape extends Shape {
 	public SimpleShape(Player o) {
 		super(o);
 		direction = 0;

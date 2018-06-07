@@ -5,7 +5,7 @@ import java.awt.image.*;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-public class UI extends Canvas implements Runnable, KeyListener, MouseListener {
+public abstract class UI extends Canvas implements Runnable, KeyListener, MouseListener {
 	protected static final long serialVersionUID = 2664539955261714283L;
 	protected Graphics g;
 	protected BufferStrategy bs;

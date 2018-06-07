@@ -2,7 +2,7 @@ package superclasses;
 
 import handlers.*;
 
-public class Shape extends MovingObject implements Cloneable{
+public abstract class Shape extends MovingObject implements Cloneable{
 	protected int value;
 	protected Player owner;
 	protected int cost;

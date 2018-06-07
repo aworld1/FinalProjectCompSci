@@ -2,7 +2,7 @@ package superclasses;
 
 import handlers.Game;
 
-public class FieldObject {
+public abstract class FieldObject {
 	protected Game myGame;
 	protected boolean dead;
 	public FieldObject() {

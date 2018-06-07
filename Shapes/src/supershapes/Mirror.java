@@ -1,9 +1,7 @@
 package supershapes;
 
 import handlers.Player;
-import superclasses.FieldObject;
-import superclasses.Shape;
-import superclasses.SuperShape;
+import superclasses.*;
 
 public class Mirror extends SuperShape {
 
@@ -22,10 +20,13 @@ public class Mirror extends SuperShape {
 	}
 	
 	public FieldObject evaluate(FieldObject s, int c) {
-		if (s instanceof Shape && !(s instanceof Mirror)) {
+		if (s instanceof SimpleShape && !(s instanceof Mirror)) {
 			Shape x = ((Shape) s).clone();
 			x.setDirection(direction);
 			myGame.addObj(x);
+		}
+		else if (s instanceof SuperShape && !(s instanceof Mirror)) {
+			((Shape) s).setDirection(direction);
 		}
 		return null;
 	}

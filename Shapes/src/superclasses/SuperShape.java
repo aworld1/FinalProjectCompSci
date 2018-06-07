@@ -2,7 +2,7 @@ package superclasses;
 
 import handlers.Player;
 
-public class SuperShape extends Shape {
+public abstract class SuperShape extends Shape {
 	public SuperShape(Player o) {
 		super(o);
 		radius = 15;
