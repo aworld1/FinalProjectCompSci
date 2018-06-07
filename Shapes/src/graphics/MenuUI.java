@@ -373,9 +373,41 @@ public class MenuUI extends UI{
 				mapobjs.add(new Flector(810, 550, 0, 0, 180, 0));
 				mapobjs.add(new Flector(860, 600, 0, 0, 0, 0));
 				mapobjs.add(new Cannon(710, 350, 0, 0, 90, 0, 90));
+				mapobjs.add(new Flector(620, 350, 0, 0, 270, 3));
+				mapobjs.add(new HealthOrb(620, 300, 0, 0, 30, 1));
+				mapobjs.add(new HealthOrb(540, 200, 0, 0, 30, 2));
+				mapobjs.add(new HealthOrb(700, 200, 0, 0, 30, 2));
+				mapobjs.add(new HealthOrb(620, 100, 0, 0, 30, 3));
+				mapobjs.add(new EnergyOrb(620, 400, 0, 0, 30, 4));
+				mapobjs.add(new EnergyOrb(540, 500, 0, 0, 30, 6));
+				mapobjs.add(new EnergyOrb(700, 500, 0, 0, 30, 6));
+				mapobjs.add(new EnergyOrb(620, 600, 0, 0, 30, 9));
 				menu.setMap(new Map(mapobjs, "Chaos"));
 			}
 			else if (e.getX() >= 750 && e.getX() <= 895 && e.getY() >= 395 && e.getY() <= 430) {
+				mapobjs.add(new EnergyOrb(520, 200, 0, 0, 20, 3));
+				mapobjs.add(new EnergyOrb(420, 130, 0, 0, 20, 3));
+				mapobjs.add(new EnergyOrb(320, 200, 0, 0, 20, 3));
+				mapobjs.add(new EnergyOrb(270, 300, 0, 0, 20, 3));
+				mapobjs.add(new EnergyOrb(320, 400, 0, 0, 20, 3));
+				mapobjs.add(new EnergyOrb(420, 470, 0, 0, 20, 3));
+				mapobjs.add(new EnergyOrb(520, 400, 0, 0, 20, 3));
+				mapobjs.add(new Flector(850, 150, 0, 0, 0, 0));
+				mapobjs.add(new Flector(800, 200, 0, 0, 180, 0));
+				mapobjs.add(new Flector(750, 250, 0, 0, 0, 0));
+				mapobjs.add(new Flector(700, 300, 0, 0, 180, 0));
+				mapobjs.add(new Flector(650, 350, 0, 0, 0, 0));
+				mapobjs.add(new Flector(600, 400, 0, 0, 180, 0));
+				mapobjs.add(new Flector(550, 450, 0, 0, 0, 0));
+				mapobjs.add(new Flector(500, 500, 0, 0, 180, 0));
+				mapobjs.add(new Flector(450, 550, 0, 0, 0, 0));
+				mapobjs.add(new Flector(400, 600, 0, 0, 180, 0));
+				mapobjs.add(new HealthOrb(700, 600, 0, 0, 20, 1));
+				mapobjs.add(new HealthOrb(750, 500, 0, 0, 20, 1));
+				mapobjs.add(new HealthOrb(800, 400, 0, 0, 20, 1));
+				mapobjs.add(new HealthOrb(850, 500, 0, 0, 20, 1));
+				mapobjs.add(new HealthOrb(900, 600, 0, 0, 20, 1));
+				mapobjs.add(new HealthOrb(800, 500, 0, 0, 20, 1));
 				menu.setMap(new Map(mapobjs, "Shameless"));
 			}
 			changePage("map");
