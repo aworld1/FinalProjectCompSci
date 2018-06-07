@@ -8,7 +8,8 @@ import graphics.*;
 import superclasses.*;
 
 public class Menu {
-	private SuperShape[] supers;
+	private String[] supers;
+	
 	private MenuUI ui;
 	private BufferedImage img;
 	private Map map;
@@ -19,7 +20,7 @@ public class Menu {
 		setMap(new Map(new ArrayList<FieldObject>(), "Classic"));
 		ui = u;
 		ui.setMenu(this);
-		supers = new SuperShape[2];
+		supers = new String[] {"Octagon", "Octagon"};
 		sHealth = new int[] {50,50};
 		sEnergy = new int[] {50,50};
 		img = ui.readImage("menu.png");
@@ -31,11 +32,11 @@ public class Menu {
 		return ui;
 	}
 	
-	public SuperShape[] getSupers() {
+	public String[] getSupers() {
 		return supers;
 	}
 
-	public void setSuper(int index, SuperShape s) {
+	public void setSuper(int index, String s) {
 		supers[index] = s;
 	}
 	
@@ -102,6 +103,70 @@ public class Menu {
 			break;
 		case "supershape":
 			ui.draw(ui.readImage("supershape.png"), 0, 312, 187, 625, 375);
+			switch (supers[0]) {
+			case "Octagon":
+				ui.draw(ui.readImage("shapeblurbs/OctagonText.png"), 0, 347, 400, 278, 154);
+				break;
+			case "Dodecagon":
+				ui.draw(ui.readImage("shapeblurbs/DodecagonText.png"), 0, 347, 400, 278, 154);
+				break;
+			case "Mirror":
+				ui.draw(ui.readImage("shapeblurbs/MirrorText.png"), 0, 347, 400, 278, 154);
+				break;
+			case "CircleFirework":
+				ui.draw(ui.readImage("shapeblurbs/CircleFireworkText.png"), 0, 347, 400, 278, 154);
+				break;
+			case "XFirework":
+				ui.draw(ui.readImage("shapeblurbs/XFireworkText.png"), 0, 347, 400, 278, 154);
+				break;
+			case "TriangleFirework":
+				ui.draw(ui.readImage("shapeblurbs/TriangleFireworkText.png"), 0, 347, 400, 278, 154);
+				break;
+			case "Guard":
+				ui.draw(ui.readImage("shapeblurbs/GuardText.png"), 0, 347, 400, 278, 154);
+				break;
+			case "Missile":
+				ui.draw(ui.readImage("shapeblurbs/MissileText.png"), 0, 347, 400, 278, 154);
+				break;
+			case "Circlinator":
+				ui.draw(ui.readImage("shapeblurbs/CirclinatorText.png"), 0, 347, 400, 278, 154);
+				break;
+			case "Haus":
+				ui.draw(ui.readImage("shapeblurbs/HausText.png"), 0, 347, 400, 278, 154);
+				break;
+			}
+			switch (supers[1]) {
+			case "Octagon":
+				ui.draw(ui.readImage("shapeblurbs/OctagonText.png"), 0, 627, 400, 278, 154);
+				break;
+			case "Dodecagon":
+				ui.draw(ui.readImage("shapeblurbs/DodecagonText.png"), 0, 627, 400, 278, 154);
+				break;
+			case "Mirror":
+				ui.draw(ui.readImage("shapeblurbs/MirrorText.png"), 0, 627, 400, 278, 154);
+				break;
+			case "CircleFirework":
+				ui.draw(ui.readImage("shapeblurbs/CircleFireworkText.png"), 0, 627, 400, 278, 154);
+				break;
+			case "XFirework":
+				ui.draw(ui.readImage("shapeblurbs/XFireworkText.png"), 0, 627, 400, 278, 154);
+				break;
+			case "TriangleFirework":
+				ui.draw(ui.readImage("shapeblurbs/TriangleFireworkText.png"), 0, 627, 400, 278, 154);
+				break;
+			case "Guard":
+				ui.draw(ui.readImage("shapeblurbs/GuardText.png"), 0, 627, 400, 278, 154);
+				break;
+			case "Missile":
+				ui.draw(ui.readImage("shapeblurbs/MissileText.png"), 0, 627, 400, 278, 154);
+				break;
+			case "Circlinator":
+				ui.draw(ui.readImage("shapeblurbs/CirclinatorText.png"), 0, 627, 400, 278, 154);
+				break;
+			case "Haus":
+				ui.draw(ui.readImage("shapeblurbs/HausText.png"), 0, 627, 400, 278, 154);
+				break;
+			}
 			break;
 		}
 		ui.getBuffer().show();

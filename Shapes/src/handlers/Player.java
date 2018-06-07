@@ -10,6 +10,7 @@ public class Player {
 	private int health;
 	private Game game;
 	private int startHealth;
+	private String superShape;
 	public InventorySlot[] inventory;
 	
 	public Player() {
@@ -53,6 +54,41 @@ public class Player {
 	public void loseEnergy(int v) {
 		setEnergy(energy - v);
 	}
+	public void setSuper(String s) {
+		superShape = s;
+		switch (superShape) {
+		case "Octagon":
+			inventory[5] = new InventorySlot(new Octagon(this), 3000);
+			break;
+		case "Dodecagon":
+			inventory[5] = new InventorySlot(new Dodecagon(this), 4000);
+			break;
+		case "Mirror":
+			inventory[5] = new InventorySlot(new Mirror(this), 3000);
+			break;
+		case "CircleFirework":
+			inventory[5] = new InventorySlot(new CircleFirework(this), 3000);
+			break;
+		case "XFirework":
+			inventory[5] = new InventorySlot(new XFirework(this), 3500);
+			break;
+		case "TriangleFirework":
+			inventory[5] = new InventorySlot(new TriangleFirework(this), 4000);
+			break;
+		case "Guard":
+			inventory[5] = new InventorySlot(new Guard(this), 2500);
+			break;
+		case "Missile":
+			inventory[5] = new InventorySlot(new Missile(this), 4500);
+			break;
+		case "Circlinator":
+			inventory[5] = new InventorySlot(new Circlinator(this), 1500);
+			break;
+		case "Haus":
+			inventory[5] = new InventorySlot(new Haus(this), 0);
+			break;
+		}
+	}
 	public void initInventory() {
 		inventory = new InventorySlot[6];
 		inventory[0] = new InventorySlot(new Circle(this), 350);
@@ -60,7 +96,7 @@ public class Player {
 		inventory[2] = new InventorySlot(new Triangle(this), 650);
 		inventory[3] = new InventorySlot(new Square(this), 800);
 		inventory[4] = new InventorySlot(new Pentagon(this), 1000);
-		inventory[5] = new InventorySlot(new Guard(this), 4000);
+		inventory[5] = new InventorySlot(new Octagon(this), 4000);
 	}
 	public void addSuperShape(SuperShape s, int c) {
 		inventory[5] = new InventorySlot(s, c);
