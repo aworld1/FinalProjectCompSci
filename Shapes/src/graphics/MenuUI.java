@@ -7,16 +7,16 @@ import handlers.*;
 import obstacles.*;
 import superclasses.FieldObject;
 
-public class MenuUI extends UI{
+public class MenuUI extends UI {
 	private static final long serialVersionUID = -5198534914510310340L;
 	private Menu menu;
 	private String pageName;
-	
+
 	public MenuUI() {
 		super();
 		pageName = "main";
 	}
-	
+
 	public MenuUI(Window window) {
 		super(window);
 		pageName = "main";
@@ -25,26 +25,28 @@ public class MenuUI extends UI{
 	public Menu getMenu() {
 		return menu;
 	}
-	
+
 	public void setMenu(Menu menu) {
 		this.menu = menu;
 	}
-	
+
 	public void changePage(String newPageName) {
 		pageName = newPageName;
 		menu.draw();
 		getBuffer().show();
 	}
-	
+
 	public void initEHToGame(Game g) {
 		g.getPlayers()[0].setHealth(menu.getGameH()[0]);
 		g.getPlayers()[0].setStartHealth(menu.getGameH()[0]);
 		g.getPlayers()[0].setEnergy(menu.getGameE()[0]);
+		g.getPlayers()[0].setSuper(menu.getSupers()[0]);
 		g.getPlayers()[1].setHealth(menu.getGameH()[1]);
 		g.getPlayers()[1].setStartHealth(menu.getGameH()[1]);
 		g.getPlayers()[1].setEnergy(menu.getGameE()[1]);
+		g.getPlayers()[1].setSuper(menu.getSupers()[1]);
 	}
-	
+
 	public void mouseReleased(MouseEvent e) {
 		System.out.println(e.getX() + " " + e.getY());
 		if (pageName.equals("main")) {
@@ -55,94 +57,69 @@ public class MenuUI extends UI{
 				window.getFrame().remove(this);
 				g.addMap(menu.getMap().getObjs());
 				g.runGame();
-			}
-			else if (e.getX() >= 660 && e.getX() <= 980 && e.getY() >= 480 && e.getY() <= 570) {
+			} else if (e.getX() >= 660 && e.getX() <= 980 && e.getY() >= 480 && e.getY() <= 570) {
 				System.out.println("PvP");
 				Game g = new Game(new GameUI(window));
 				initEHToGame(g);
 				window.getFrame().remove(this);
 				g.addMap(menu.getMap().getObjs());
 				g.runGame();
-			}
-			else if (e.getX() >= 270 && e.getX() <= 590 && e.getY() >= 190 && e.getY() <= 420) {
+			} else if (e.getX() >= 270 && e.getX() <= 590 && e.getY() >= 190 && e.getY() <= 420) {
 				changePage("map");
-			}
-			else if (e.getX() >= 660 && e.getX() <= 980 && e.getY() >= 190 && e.getY() <= 420) {
+			} else if (e.getX() >= 660 && e.getX() <= 980 && e.getY() >= 190 && e.getY() <= 420) {
 				changePage("supershape");
-			}
-			else if (e.getX() >= 1020 && e.getX() <= 1085 && e.getY() >= 275 && e.getY() <= 335) {
+			} else if (e.getX() >= 1020 && e.getX() <= 1085 && e.getY() >= 275 && e.getY() <= 335) {
 				changePage("instructions");
-			}
-			else if (e.getX() >= 1020 && e.getX() <= 1085 && e.getY() >= 480 && e.getY() <= 545) {
+			} else if (e.getX() >= 1020 && e.getX() <= 1085 && e.getY() >= 480 && e.getY() <= 545) {
 				changePage("settings");
-			}
-			else if (e.getX() >= 535 && e.getX() <= 720 && e.getY() >= 620 && e.getY() <= 655) {
+			} else if (e.getX() >= 535 && e.getX() <= 720 && e.getY() >= 620 && e.getY() <= 655) {
 				changePage("credits");
 			}
-		}
-		else if (!pageName.equals("main") && (e.getX() >= 880 && e.getX() <= 930 && e.getY() >= 195 && e.getY() <= 235)) {
+		} else if (!pageName.equals("main")
+				&& (e.getX() >= 880 && e.getX() <= 930 && e.getY() >= 195 && e.getY() <= 235)) {
 			changePage("main");
-		}
-		else if (pageName.equals("settings")) {
+		} else if (pageName.equals("settings")) {
 			if (e.getX() >= 465 && e.getX() <= 510 && e.getY() >= 290 && e.getY() <= 315) {
 				menu.changeH(-10, 0);
-			}
-			else if (e.getX() >= 545 && e.getX() <= 590 && e.getY() >= 290 && e.getY() <= 315) {
+			} else if (e.getX() >= 545 && e.getX() <= 590 && e.getY() >= 290 && e.getY() <= 315) {
 				menu.changeH(-1, 0);
-			}
-			else if (e.getX() >= 660 && e.getX() <= 705 && e.getY() >= 290 && e.getY() <= 315) {
+			} else if (e.getX() >= 660 && e.getX() <= 705 && e.getY() >= 290 && e.getY() <= 315) {
 				menu.changeH(1, 0);
-			}
-			else if (e.getX() >= 740 && e.getX() <= 785 && e.getY() >= 290 && e.getY() <= 315) {
+			} else if (e.getX() >= 740 && e.getX() <= 785 && e.getY() >= 290 && e.getY() <= 315) {
 				menu.changeH(10, 0);
-			}
-			else if (e.getX() >= 465 && e.getX() <= 510 && e.getY() >= 340 && e.getY() <= 360) {
+			} else if (e.getX() >= 465 && e.getX() <= 510 && e.getY() >= 340 && e.getY() <= 360) {
 				menu.changeE(-10, 0);
-			}
-			else if (e.getX() >= 545 && e.getX() <= 590 && e.getY() >= 340 && e.getY() <= 360) {
+			} else if (e.getX() >= 545 && e.getX() <= 590 && e.getY() >= 340 && e.getY() <= 360) {
 				menu.changeE(-1, 0);
-			}
-			else if (e.getX() >= 660 && e.getX() <= 705 && e.getY() >= 340 && e.getY() <= 360) {
+			} else if (e.getX() >= 660 && e.getX() <= 705 && e.getY() >= 340 && e.getY() <= 360) {
 				menu.changeE(1, 0);
-			}
-			else if (e.getX() >= 740 && e.getX() <= 785 && e.getY() >= 340 && e.getY() <= 360) {
+			} else if (e.getX() >= 740 && e.getX() <= 785 && e.getY() >= 340 && e.getY() <= 360) {
 				menu.changeE(10, 0);
-			}
-			else if (e.getX() >= 465 && e.getX() <= 510 && e.getY() >= 405 && e.getY() <= 430) {
+			} else if (e.getX() >= 465 && e.getX() <= 510 && e.getY() >= 405 && e.getY() <= 430) {
 				menu.changeH(-10, 1);
-			}
-			else if (e.getX() >= 545 && e.getX() <= 590 && e.getY() >= 405 && e.getY() <= 430) {
+			} else if (e.getX() >= 545 && e.getX() <= 590 && e.getY() >= 405 && e.getY() <= 430) {
 				menu.changeH(-1, 1);
-			}
-			else if (e.getX() >= 660 && e.getX() <= 705 && e.getY() >= 405 && e.getY() <= 430) {
+			} else if (e.getX() >= 660 && e.getX() <= 705 && e.getY() >= 405 && e.getY() <= 430) {
 				menu.changeH(1, 1);
-			}
-			else if (e.getX() >= 740 && e.getX() <= 785 && e.getY() >= 405 && e.getY() <= 430) {
+			} else if (e.getX() >= 740 && e.getX() <= 785 && e.getY() >= 405 && e.getY() <= 430) {
 				menu.changeH(10, 1);
-			}
-			else if (e.getX() >= 465 && e.getX() <= 510 && e.getY() >= 450 && e.getY() <= 470) {
+			} else if (e.getX() >= 465 && e.getX() <= 510 && e.getY() >= 450 && e.getY() <= 470) {
 				menu.changeE(-10, 1);
-			}
-			else if (e.getX() >= 545 && e.getX() <= 590 && e.getY() >= 450 && e.getY() <= 470) {
+			} else if (e.getX() >= 545 && e.getX() <= 590 && e.getY() >= 450 && e.getY() <= 470) {
 				menu.changeE(-1, 1);
-			}
-			else if (e.getX() >= 660 && e.getX() <= 705 && e.getY() >= 450 && e.getY() <= 470) {
+			} else if (e.getX() >= 660 && e.getX() <= 705 && e.getY() >= 450 && e.getY() <= 470) {
 				menu.changeE(1, 1);
-			}
-			else if (e.getX() >= 740 && e.getX() <= 785 && e.getY() >= 450 && e.getY() <= 470) {
+			} else if (e.getX() >= 740 && e.getX() <= 785 && e.getY() >= 450 && e.getY() <= 470) {
 				menu.changeE(10, 1);
-			}
-			else if (e.getX() >= 485 && e.getX() <= 765 && e.getY() >= 510 && e.getY() <= 535) {
+			} else if (e.getX() >= 485 && e.getX() <= 765 && e.getY() >= 510 && e.getY() <= 535) {
 				menu.resetEHToDefault();
 			}
 			changePage("settings");
-		}
-		else if (pageName.equals("map")) {
+		} else if (pageName.equals("map")) {
 			ArrayList<FieldObject> mapobjs = new ArrayList<FieldObject>();
 			if (e.getX() >= 350 && e.getX() <= 505 && e.getY() >= 245 && e.getY() <= 285) {
 				menu.setMap(new Map(mapobjs, "Classic"));
-			}
-			else if (e.getX() >= 545 && e.getX() <= 700 && e.getY() >= 245 && e.getY() <= 285) {
+			} else if (e.getX() >= 545 && e.getX() <= 700 && e.getY() >= 245 && e.getY() <= 285) {
 				mapobjs.add(new Flector(630, 150, 0, 0, 180, 0));
 				mapobjs.add(new Flector(630, 550, 0, 0, 0, 0));
 				mapobjs.add(new Flector(300, 350, 0, 0, 270, 2));
@@ -153,8 +130,7 @@ public class MenuUI extends UI{
 				mapobjs.add(new EnergyOrb(560, 350, 0, 0, 20, 5));
 				mapobjs.add(new EnergyOrb(700, 350, 0, 0, 20, 5));
 				menu.setMap(new Map(mapobjs, "Redirect"));
-			}
-			else if (e.getX() >= 750 && e.getX() <= 895 && e.getY() >= 245 && e.getY() <= 285) {
+			} else if (e.getX() >= 750 && e.getX() <= 895 && e.getY() >= 245 && e.getY() <= 285) {
 				mapobjs.add(new DisappearingFlector(150, 90, 0, 0, 0, 0));
 				mapobjs.add(new DisappearingFlector(150, 140, 0, 0, 0, 0));
 				mapobjs.add(new DisappearingFlector(150, 190, 0, 0, 0, 0));
@@ -185,8 +161,7 @@ public class MenuUI extends UI{
 				mapobjs.add(new EnergyOrb(350, 500, 0, 0, 20, 5));
 				mapobjs.add(new Cannon(630, 350, 270, 1, 90, 1, 60));
 				menu.setMap(new Map(mapobjs, "Protected"));
-			}
-			else if (e.getX() >= 350 && e.getX() <= 505 && e.getY() >= 295 && e.getY() <= 335) {
+			} else if (e.getX() >= 350 && e.getX() <= 505 && e.getY() >= 295 && e.getY() <= 335) {
 				mapobjs.add(new Flector(630, 150, 0, 0, 180, 0));
 				mapobjs.add(new Flector(630, 550, 0, 0, 0, 0));
 				mapobjs.add(new Flector(400, 150, 90, 1, 180, 0));
@@ -194,8 +169,7 @@ public class MenuUI extends UI{
 				mapobjs.add(new Cannon(630, 350, 270, 1, 90, 1, 180));
 				mapobjs.add(new EnergyOrb(630, 350, 0, 0, 40, 5));
 				menu.setMap(new Map(mapobjs, "Automated"));
-			}
-			else if (e.getX() >= 545 && e.getX() <= 700 && e.getY() >= 295 && e.getY() <= 335) {
+			} else if (e.getX() >= 545 && e.getX() <= 700 && e.getY() >= 295 && e.getY() <= 335) {
 				mapobjs.add(new Flector(370, 125, 0, 0, 180, 0));
 				mapobjs.add(new Flector(370, 275, 0, 0, 0, 0));
 				mapobjs.add(new Flector(370, 425, 0, 0, 90, 0));
@@ -215,8 +189,7 @@ public class MenuUI extends UI{
 				mapobjs.add(new EnergyOrb(570, 550, 270, 2, 30, -2));
 				mapobjs.add(new HealthOrb(660, 550, 270, 2, 30, -2));
 				menu.setMap(new Map(mapobjs, "Regenerate"));
-			}
-			else if (e.getX() >= 750 && e.getX() <= 895 && e.getY() >= 295 && e.getY() <= 335) {
+			} else if (e.getX() >= 750 && e.getX() <= 895 && e.getY() >= 295 && e.getY() <= 335) {
 				mapobjs.add(new Flector(430, 150, 0, 0, 90, 0));
 				mapobjs.add(new Flector(430, 250, 0, 0, 0, 0));
 				mapobjs.add(new Flector(430, 450, 0, 0, 270, 0));
@@ -245,8 +218,7 @@ public class MenuUI extends UI{
 				mapobjs.add(new DisappearingCannon(630, 80, 0, 0, 0, 0, 60));
 				mapobjs.add(new DisappearingCannon(630, 630, 0, 0, 0, 0, 60));
 				menu.setMap(new Map(mapobjs, "Poison"));
-			}
-			else if (e.getX() >= 350 && e.getX() <= 505 && e.getY() >= 340 && e.getY() <= 385) {
+			} else if (e.getX() >= 350 && e.getX() <= 505 && e.getY() >= 340 && e.getY() <= 385) {
 				mapobjs.add(new Flector(380, 100, 0, 0, 315, 0));
 				mapobjs.add(new Flector(380, 200, 0, 0, 90, 0));
 				mapobjs.add(new DisappearingFlector(330, 150, 0, 0, 180, 0));
@@ -267,8 +239,7 @@ public class MenuUI extends UI{
 				mapobjs.add(new DisappearingFlector(630, 450, 0, 0, 90, 0));
 				mapobjs.add(new HealthOrb(630, 350, 0, 0, 30, 2));
 				menu.setMap(new Map(mapobjs, "Guarded"));
-			}
-			else if (e.getX() >= 545 && e.getX() <= 700 && e.getY() >= 340 && e.getY() <= 385) {
+			} else if (e.getX() >= 545 && e.getX() <= 700 && e.getY() >= 340 && e.getY() <= 385) {
 				mapobjs.add(new Flector(400, 150, 0, 0, 0, 0));
 				mapobjs.add(new Flector(400, 250, 0, 0, 0, 0));
 				mapobjs.add(new Flector(400, 350, 0, 0, 0, 0));
@@ -287,8 +258,7 @@ public class MenuUI extends UI{
 				mapobjs.add(new EnergyOrb(730, 270, 0, 0, 20, 4));
 				mapobjs.add(new HealthOrb(730, 430, 0, 0, 20, 1));
 				menu.setMap(new Map(mapobjs, "GreatWall"));
-			}
-			else if (e.getX() >= 750 && e.getX() <= 895 && e.getY() >= 340 && e.getY() <= 385) {
+			} else if (e.getX() >= 750 && e.getX() <= 895 && e.getY() >= 340 && e.getY() <= 385) {
 				mapobjs.add(new Flector(220, 100, 0, 0, 90, 0));
 				mapobjs.add(new Flector(220, 600, 0, 0, 0, 0));
 				mapobjs.add(new Flector(320, 200, 0, 0, 0, 0));
@@ -312,8 +282,7 @@ public class MenuUI extends UI{
 				mapobjs.add(new Flector(970, 500, 0, 0, 180, 0));
 				mapobjs.add(new Flector(970, 600, 0, 0, 270, 0));
 				menu.setMap(new Map(mapobjs, "Cornered"));
-			}
-			else if (e.getX() >= 350 && e.getX() <= 505 && e.getY() >= 395 && e.getY() <= 430) {
+			} else if (e.getX() >= 350 && e.getX() <= 505 && e.getY() >= 395 && e.getY() <= 430) {
 				mapobjs.add(new EnergyOrb(630, 350, 0, 0, 300, 1));
 				mapobjs.add(new EnergyOrb(630, 100, 0, 0, 30, 3));
 				mapobjs.add(new EnergyOrb(630, 600, 0, 0, 30, 3));
@@ -329,8 +298,7 @@ public class MenuUI extends UI{
 				mapobjs.add(new HealthOrb(630, 350, 0, 0, 30, -1));
 				mapobjs.add(new HealthOrb(630, 450, 0, 0, 30, 1));
 				menu.setMap(new Map(mapobjs, "Raid"));
-			}
-			else if (e.getX() >= 545 && e.getX() <= 700 && e.getY() >= 395 && e.getY() <= 430) {
+			} else if (e.getX() >= 545 && e.getX() <= 700 && e.getY() >= 395 && e.getY() <= 430) {
 				mapobjs.add(new Flector(330, 250, 0, 0, 90, 0));
 				mapobjs.add(new Flector(330, 300, 0, 0, 0, 0));
 				mapobjs.add(new Flector(330, 400, 0, 0, 0, 0));
@@ -383,8 +351,7 @@ public class MenuUI extends UI{
 				mapobjs.add(new EnergyOrb(700, 500, 0, 0, 30, 6));
 				mapobjs.add(new EnergyOrb(620, 600, 0, 0, 30, 9));
 				menu.setMap(new Map(mapobjs, "Chaos"));
-			}
-			else if (e.getX() >= 750 && e.getX() <= 895 && e.getY() >= 395 && e.getY() <= 430) {
+			} else if (e.getX() >= 750 && e.getX() <= 895 && e.getY() >= 395 && e.getY() <= 430) {
 				mapobjs.add(new EnergyOrb(520, 200, 0, 0, 20, 3));
 				mapobjs.add(new EnergyOrb(420, 130, 0, 0, 20, 3));
 				mapobjs.add(new EnergyOrb(320, 200, 0, 0, 20, 3));
@@ -412,6 +379,49 @@ public class MenuUI extends UI{
 			}
 			changePage("map");
 			menu.draw();
+		} else if (pageName.equals("supershape")) {
+			if (e.getX() >= 350 && e.getX() <= 425 && e.getY() >= 250 && e.getY() <= 297) {
+				menu.setSuper(0, "Octagon");
+			} else if (e.getX() >= 426 && e.getX() <= 505 && e.getY() >= 250 && e.getY() <= 297) {
+				menu.setSuper(1, "Octagon");
+			} else if (e.getX() >= 547 && e.getX() <= 623 && e.getY() >= 250 && e.getY() <= 297) {
+				menu.setSuper(0, "Dodecagon");
+			} else if (e.getX() >= 624 && e.getX() <= 705 && e.getY() >= 250 && e.getY() <= 297) {
+				menu.setSuper(1, "Dodecagon");
+			} else if (e.getX() >= 745 && e.getX() <= 822 && e.getY() >= 250 && e.getY() <= 297) {
+				menu.setSuper(0, "Mirror");
+			} else if (e.getX() >= 823 && e.getX() <= 900 && e.getY() >= 250 && e.getY() <= 297) {
+				menu.setSuper(1, "Mirror");
+			} else if (e.getX() >= 350 && e.getX() <= 425 && e.getY() >= 300 && e.getY() <= 345) {
+				menu.setSuper(0, "CircleFirework");
+			} else if (e.getX() >= 426 && e.getX() <= 505 && e.getY() >= 300 && e.getY() <= 345) {
+				menu.setSuper(1, "CircleFirework");
+			} else if (e.getX() >= 547 && e.getX() <= 623 && e.getY() >= 300 && e.getY() <= 345) {
+				menu.setSuper(0, "XFirework");
+			} else if (e.getX() >= 624 && e.getX() <= 705 && e.getY() >= 300 && e.getY() <= 345) {
+				menu.setSuper(1, "XFirework");
+			} else if (e.getX() >= 745 && e.getX() <= 822 && e.getY() >= 300 && e.getY() <= 345) {
+				menu.setSuper(0, "TriangleFirework");
+			} else if (e.getX() >= 823 && e.getX() <= 900 && e.getY() >= 300 && e.getY() <= 345) {
+				menu.setSuper(1, "TriangleFirework");
+			} else if (e.getX() >= 350 && e.getX() <= 425 && e.getY() >= 350 && e.getY() <= 395) {
+				menu.setSuper(0, "Guard");
+			} else if (e.getX() >= 426 && e.getX() <= 505 && e.getY() >= 350 && e.getY() <= 395) {
+				menu.setSuper(1, "Guard");
+			} else if (e.getX() >= 547 && e.getX() <= 623 && e.getY() >= 350 && e.getY() <= 395) {
+				menu.setSuper(0, "Missile");
+			} else if (e.getX() >= 624 && e.getX() <= 705 && e.getY() >= 350 && e.getY() <= 395) {
+				menu.setSuper(1, "Missile");
+			} else if (e.getX() >= 745 && e.getX() <= 822 && e.getY() >= 350 && e.getY() <= 395) {
+				menu.setSuper(0, "Circlinator");
+			} else if (e.getX() >= 823 && e.getX() <= 900 && e.getY() >= 350 && e.getY() <= 395) {
+				menu.setSuper(1, "Circlinator");
+			}
+			changePage("supershape");
+		} else if (pageName.equals("credits")) {
+			if (e.getX() >= 840 && e.getX() <= 925 && e.getY() >= 540 && e.getY() <= 560) {
+				menu.setSuper(0, "Haus");
+			}
 		}
 	}
 
